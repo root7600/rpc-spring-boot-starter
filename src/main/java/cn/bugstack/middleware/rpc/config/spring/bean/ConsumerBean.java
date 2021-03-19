@@ -1,18 +1,17 @@
 package cn.bugstack.middleware.rpc.config.spring.bean;
 
-import cn.bugstack.middleware.rpc.network.client.ClientSocket;
-import cn.bugstack.middleware.rpc.network.msg.Request;
-import com.alibaba.fastjson.JSON;
-import io.netty.channel.ChannelFuture;
 import cn.bugstack.middleware.rpc.config.ConsumerConfig;
 import cn.bugstack.middleware.rpc.domain.RpcProviderConfig;
+import cn.bugstack.middleware.rpc.network.client.ClientSocket;
+import cn.bugstack.middleware.rpc.network.msg.Request;
 import cn.bugstack.middleware.rpc.reflect.JDKProxy;
 import cn.bugstack.middleware.rpc.registry.RedisRegistryCenter;
 import cn.bugstack.middleware.rpc.util.ClassLoaderUtils;
+import com.alibaba.fastjson.JSON;
+import io.netty.channel.ChannelFuture;
 import org.springframework.beans.factory.FactoryBean;
-import org.springframework.util.Assert;
 
-public class ConsumerBean<T> extends ConsumerConfig<T> implements FactoryBean {
+public class ConsumerBean<T> extends ConsumerConfig implements FactoryBean {
 
     private ChannelFuture channelFuture;
 
@@ -38,8 +37,7 @@ public class ConsumerBean<T> extends ConsumerConfig<T> implements FactoryBean {
                 channelFuture = clientSocket.getFuture();
             }
         }
-        Assert.isTrue(null != channelFuture);
-
+        
         Request request = new Request();
         request.setChannel(channelFuture.channel());
         request.setNozzle(nozzle);
@@ -61,6 +59,5 @@ public class ConsumerBean<T> extends ConsumerConfig<T> implements FactoryBean {
     public boolean isSingleton() {
         return true;
     }
-
 
 }
